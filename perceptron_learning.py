@@ -1,7 +1,7 @@
 import numpy as np
 import sys
 
-if len(sys.argv) == 2:
+if len(sys.argv) == 3:
     algorithm_type = sys.argv[1] # The type of algorithm (sequential, batch or multi_class)
     number_of_classes = sys.argv[2] # The number of classes in the multi_class case
 else:
@@ -11,15 +11,15 @@ else:
 # These need to be changed based on the question given. Also need to add multiple weight vectors in case
 # it is a multi-class perceptron learning algorithm question.
 
-weight_vector = np.array([0, 0, 0])
-weight_vector_2 = np.array([0, 0, 0])
-weight_vector_3 = np.array([0, 0, 0])
+weight_vector = np.array([1, 0.5, 0.5, -0.75])
+weight_vector_2 = np.array([-1, 2, 2, 1])
+weight_vector_3 = np.array([2, -1, -1, 1])
 weight_vectors = []
 weight_vectors.append(weight_vector)
 weight_vectors.append(weight_vector_2)
 weight_vectors.append(weight_vector_3)
 
-data = np.array([(1, 1), (2, 0), (0, 2), (-1, 1), (-1, -1)])
+data = np.array([(0, 1, 0), (1, 0, 0), (0.5, 0.5, 0.25), (1, 1, 1), (0, 0, 0)])
 data_labels = [1, 1, 2, 2, 3]
 learning_rate = 1
 
@@ -88,7 +88,9 @@ def perceptron_learning(algorithm_type, data_to_use, weight_vector):
                     predictions.append((prediction, j + 1))
                 predicted_class = max(predictions, key=lambda i: i[0])[1]
                 if all(x[0] == predictions[0][0] for x in predictions):
-                    predicted_class = len(weight_vectors)
+                    # In the event of ties, these lines may have to be changed
+                    predicted_class = 1
+                    # predicted_class = len(weight_vectors)
                 target_class = data_labels[i]
                 if target_class != predicted_class:
                     weight_vectors[target_class-1] = weight_vectors[target_class-1] + (learning_rate * data_to_use[i])

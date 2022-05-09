@@ -2,9 +2,9 @@ import numpy as np
 import sys
 
 algorithm_type = sys.argv[1] # The type of algorithm (sequential or batch)
-weight_vector = np.array([-1.5, 2])
-data = np.array([(1, 0), (1, 1)])
-data_labels = [1, 0]
+weight_vector = np.array([1, 0, 0])
+data = np.array([(1, 0, 2), (1, 1, 2), (1, 2, 1), (1, -3, 1), (1, -2, -1), (1, -3, -2)])
+data_labels = [1, 1, 1, 0, 0, 0]
 learning_rate = 1
 
 def heaviside(input):
